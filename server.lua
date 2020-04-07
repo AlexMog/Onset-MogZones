@@ -16,11 +16,6 @@ local playerZones = {}
 
 -- TODO All this project is only used for 2D collisions right now. Add the usage of "z" axis for full 3D support.
 AddEvent("OnPackageStart", function()
-    -- Load saved zones
-    for _,value in pairs(json_load("zones.json")) do
-        -- TODO instantiate zones
-    end
-
     CreateTimer(function()
         for _, player in pairs(GetAllPlayers()) do
             local x, y, z = GetPlayerLocation(player)
@@ -64,16 +59,11 @@ AddEvent("OnPlayerQuit", function(player)
     playerZones[player] = nil
 end)
 
-local function AddZone(shape)
+function CreateZone(shape)
     zones[id] = quadtree:bboxAdd(shape)
     zonesToId[shape] = id
     id = id + 1
     return id - 1
-end
-
-function CreateZone(shape)
-    AddZone(shape)
-    json_save("zones.json", zones)
 end
 AddFunctionExport("CreateZone", CreateZone)
 
@@ -82,7 +72,6 @@ function DeleteZone(id)
     zones[id] = nil
     zonesToId[zone] = nill
     quadtree:removeObject(zone)
-    json_save("zones.json", zones)
 end
 AddFunctionExport("DeleteZone", DeleteZone)
 
