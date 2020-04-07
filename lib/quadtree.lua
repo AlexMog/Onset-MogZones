@@ -77,9 +77,6 @@ function QuadTree:check(object, func, x, y)
 end
 
 function QuadTree:bboxAdd(object)
-    for key,value in pairs(object) do
-        print("found member " .. key);
-    end
     local x, y, width, height = object:bbox()
     local obj = {
         parent = object,
