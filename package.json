@@ -1,0 +1,18 @@
+{
+    "author": "Alexandre M. - AlexMog",
+    "version": "0.1.8a",
+    "server_scripts": [
+        "lib/json.lua",
+        "lib/utils.lua",
+        "lib/vector.lua",
+        "lib/gjk.lua",
+        "lib/polygon.lua",
+        "lib/shapes.lua",
+        "lib/quadtree.lua",
+        "server.lua"
+    ],
+    "client_scripts": [
+        "client.lua"
+    ],
+    "files": []
+}

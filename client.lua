@@ -1,0 +1,1 @@
+-- TODO Add ways to draw the collisions on client part
