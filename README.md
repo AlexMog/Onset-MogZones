@@ -13,7 +13,7 @@ local MogZones = ImportPackage("mogzones")
 local helloWorldZone;
 
 AddEvent("OnPackageStart", function()
-    helloWorldZone = MogZones.CreateZone(MogZones.NewCircleShape(0, 0, 20000))
+    helloWorldZone = MogZones.NewCircleZone(0, 0, 20000)
 end)
 
 AddEvent("mogzones:zone_enter", function(player, zoneId)
@@ -38,18 +38,15 @@ end)
 --- Deletes a zone
 --- @param zoneId number The ID of the zone to delete
 MogZones.DeleteZone(zoneId)
----  Creates a zone
---- @param shape table The shape to use to create the zone
-MogZones.CreateZone(shape)
 --- Check if a player collides with a specific zone
 MogZones.PlayerCollidesWithZone(player, zoneId)
---- Creates a new rectangle shape
-MogZones.NewRectangleShape(x, y, width, height)
---- Creates a point shape
-MogZones.NewPointShape(x, y)
---- Creates a circle shape
-MogZones.NewCircleShape(x, y, radius)
---- Creates a custom polygon. Each point of the polygon is assumed to followup.
+--- Creates a new rectangle shaped zone
+MogZones.NewRectangleZone(x, y, width, height)
+--- Creates a zone of with and height 1
+MogZones.NewPointZone(x, y)
+--- Creates a circle shaped zone
+MogZones.NewCircleZone(x, y, radius)
+--- Creates a custom polygon zone. Each point of the polygon is assumed to followup.
 --- In this example, x,y are the position of a point, x1,y1 from another point, etc.
-MogZones.NewPolygonShape(x,y, x1,y1, x2,y2, ...)
+MogZones.NewPolygonZone(x,y, x1,y1, x2,y2, ...)
 ```

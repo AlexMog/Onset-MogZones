@@ -41,7 +41,7 @@ local function new(args)
     class.is_a = function(self, other) return not not self.__is_a[other] end
 
     -- inherit superclasses (see above)
-    inherit(class, unpack(super))
+    inherit(class, table.unpack(super))
 
     -- syntactic sugar
     local meta = {

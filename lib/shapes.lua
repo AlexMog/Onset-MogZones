@@ -379,19 +379,15 @@ function newPolygonShape(polygon, ...)
 
     return instance(ConcavePolygonShape, polygon)
 end
-AddFunctionExport("NewPolygonShape", newPolygonShape)
 
 function newCircleShape(...)
     return instance(CircleShape, ...)
 end
-AddFunctionExport("NewCircleShape", newCircleShape)
 
 function newPointShape(...)
     return instance(PointShape, ...)
 end
-AddFunctionExport("NewPointShape", newPointShape)
 
 function newRectangleShape(x, y, width, height)
     return newPolygonShape(x,y, x+width,y, x+width,y+height, x,y+height)
 end
-AddFunctionExport("NewRectangleShape", newRectangleShape)

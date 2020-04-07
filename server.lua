@@ -11,7 +11,6 @@ local TIMER_CHECK_VALUE = 500
 
 local id = 0
 local zones = {}
-local zonesToId = {}
 local playerZones = {}
 
 -- TODO All this project is only used for 2D collisions right now. Add the usage of "z" axis for full 3D support.
@@ -44,10 +43,9 @@ AddEvent("OnPackageStart", function()
 
             for _, zone in pairs(collidableZones) do
                 if playerCollider:collidesWith(zone.parent) then
-                    local zoneId = zonesToId[zone]
-                    if not playerZones[player][zoneId] then
-                        playerZones[player][zoneId] = true
-                        CallEvent("mogzones:zone_enter", player, zoneId)
+                    if not playerZones[player][zone.parent.id] then
+                        playerZones[player][zone.parent.id] = true
+                        CallEvent("mogzones:zone_enter", player, zone.parent.id)
                     end
                 end
             end
@@ -60,20 +58,34 @@ AddEvent("OnPlayerQuit", function(player)
 end)
 
 function CreateZone(shape)
+    shape.id = id
     zones[id] = quadtree:bboxAdd(shape)
-    zonesToId[shape] = id
     id = id + 1
     return id - 1
 end
-AddFunctionExport("CreateZone", CreateZone)
 
 function DeleteZone(id)
     local zone = zones[id]
     zones[id] = nil
-    zonesToId[zone] = nill
     quadtree:removeObject(zone)
 end
 AddFunctionExport("DeleteZone", DeleteZone)
+
+AddFunctionExport("NewPolygonZone", function(...)
+    return CreateZone(newPolygonShape(...))
+end)
+
+AddFunctionExport("NewCircleZone", function(x, y, radius)
+    return CreateZone(newCircleShape(x, y, radius))
+end)
+
+AddFunctionExport("NewPointZone", function(x, y)
+    return CreateZone(newPointShape(x, y))
+end)
+
+AddFunctionExport("NewRectangleZone", function(x, y, width, height)
+    return CreateZone(newRectangleShape(x, y, width, height))
+end)
 
 function PlayerCollidesWithZone(player, zoneId)
     local x, y, z = GetPlayerLocation(player)
