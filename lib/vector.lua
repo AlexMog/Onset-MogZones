@@ -2,6 +2,8 @@
 
 local sqrt, cos, sin = math.sqrt, math.cos, math.sin
 
+vector = {}
+
 function vector.str(x,y)
     return "("..tonumber(x)..","..tonumber(y)..")"
 end
