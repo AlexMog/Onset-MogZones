@@ -1,10 +1,10 @@
 # Mog Zones
 This package allows for creation of zones.  
-Each zone can take multiple shapes (see `lib/shapes.lua` for provided shapes), event custom
+Each zone can take multiple shapes, even custom
 polygon shapes.  
 The package will generate events depending on players state.  
 The packages uses QuadTree to optimize collisions check.  
-**WARNING** Current collisions are checked in 2D. 3D Collisions will be provided in future objects.
+**WARNING** Current collisions are checked in 2D. 3D Collisions will be provided in future updates.
 
 
 # Usage
