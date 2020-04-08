@@ -8,10 +8,11 @@
         "lib/gjk.lua",
         "lib/polygon.lua",
         "lib/shapes.lua",
-        "lib/quadtree.lua",
+        "lib/spatialhash.lua",
         "server.lua"
     ],
     "client_scripts": [
+        "lib/json.lua",
         "client.lua"
     ],
     "files": []
