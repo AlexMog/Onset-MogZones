@@ -4,10 +4,10 @@
 -- It could be readapted using a octree to have a complete 3D tree if needed
 -- Or for a precompiled collision detection approach (use only static objects), kd-tree can be used too
 -- In my case, I think that QuadTree must be sufficient
-local quadtree = QuadTree.new(-99999999, -999999999, 999999999, 999999999, 20)
+local quadtree = QuadTree.new(-99999999, -999999999, 999999999, 999999999, 5)
 
 -- Rate check for collisions, instead of checking on each frame, this will avoid overusage because collisions check is heavy as f***. (event with a quadtree)
-local TIMER_CHECK_VALUE = 500
+local TIMER_CHECK_VALUE = 50
 
 local id = 0
 local zones = {}
