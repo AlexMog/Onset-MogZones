@@ -49,4 +49,19 @@ MogZones.NewCircleZone(x, y, radius)
 --- Creates a custom polygon zone. Each point of the polygon is assumed to followup.
 --- In this example, x,y are the position of a point, x1,y1 from another point, etc.
 MogZones.NewPolygonZone(x,y, x1,y1, x2,y2, ...)
+--- Updates a zone location
+--- @param zoneId number The ID of the zone to update
+--- @param x number The new X position
+--- @param y number The new Y position
+MogZones.UpdateZoneLocation(zoneId, x, y)
+--- Updates a zone rotation
+--- @param zoneId number The ID of the zone to update
+--- @param angle number The new angle of the zone
+--- @param centerX number OPTIONAL: the center X of the rotation
+--- @param centerY number OPTIONAL: the center Y of the rotation
+MogZones.UpdateZoneRotation(zoneId, angle, centerX, centerY)
+--- Updates the size of a zone, by multiplying by a scale
+--- @param zoneId number The ID of the zone to update
+--- @param scale number The scale to apply on the zone
+MogZones.UpdateZoneScale(zoneId, scale)
 ```

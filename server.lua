@@ -87,6 +87,17 @@ AddEvent("OnPlayerQuit", function(player)
     playerZones[player] = nil
 end)
 
+local function UpdateZone(zoneId, fnc)
+    local shape = rawget(zones, zoneId)
+    if not shape then
+        return false
+    end
+    local oldX1, oldY1, oldX2, oldY2 = shape:bbox()
+    fnc(shape)
+    spatialhash:update(zone, oldX1, oldY1, oldX2, oldY2, zone:bbox())
+    return true
+end
+
 function CreateZone(shape)
     shape.id = id
     spatialhash:register(shape, shape:bbox())
@@ -95,6 +106,8 @@ function CreateZone(shape)
     return id - 1
 end
 
+--- Deletes a zone
+--- @param id number The ID of the zone to delete
 function DeleteZone(id)
     local shape = zones[id]
     zones[id] = nil
@@ -102,22 +115,58 @@ function DeleteZone(id)
 end
 AddFunctionExport("DeleteZone", DeleteZone)
 
+--- Creates a custom polygon zone. Each point of the polygon is assumed to followup.
+--- In this example, x,y are the position of a point, x1,y1 from another point, etc.
 AddFunctionExport("NewPolygonZone", function(...)
     return CreateZone(newPolygonShape(...))
 end)
 
+--- Creates a circle shaped zone
 AddFunctionExport("NewCircleZone", function(x, y, radius)
     return CreateZone(newCircleShape(x, y, radius))
 end)
 
+--- Creates a zone of with and height 1
 AddFunctionExport("NewPointZone", function(x, y)
     return CreateZone(newPointShape(x, y))
 end)
 
+--- Creates a new rectangle shaped zone
 AddFunctionExport("NewRectangleZone", function(x, y, width, height)
     return CreateZone(newRectangleShape(x, y, width, height))
 end)
 
+--- Updates a zone location
+--- @param zoneId number The ID of the zone to update
+--- @param x number The new X position
+--- @param y number The new Y position
+AddFunctionExport("UpdateZoneLocation", function(zoneId, x, y)
+    return UpdateZone(zoneId, function(shape)
+        shape:moveTo(x, y)
+    end)
+end)
+
+--- Updates a zone rotation
+--- @param zoneId number The ID of the zone to update
+--- @param angle number The new angle of the zone
+--- @param centerX number OPTIONAL: the center X of the rotation
+--- @param centerY number OPTIONAL: the center Y of the rotation
+AddFunctionExport("UpdateZoneRotation", function(zoneId, angle, centerX, centerY)
+    return UpdateZone(zoneId, function(shape)
+        shape:rotate(angle, centerX, centerY)
+    end)
+end)
+
+--- Updates the size of a zone, by multiplying by a scale
+--- @param zoneId number The ID of the zone to update
+--- @param scale number The scale to apply on the zone
+AddFunctionExport("UpdateZoneScale", function(zoneId, scale)
+    return UpdateZone(zoneId, function(shape)
+        shape:scale(scale)
+    end)
+end)
+
+--- Check if a player collides with a specific zone
 function PlayerCollidesWithZone(player, zoneId)
     local x, y, z = GetPlayerLocation(player)
 
