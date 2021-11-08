@@ -57,11 +57,11 @@ function vector.len(x,y)
 end
 
 function vector.dist(x1,y1, x2,y2)
-    return len(x1-x2, y1-y2)
+    return vector.len(x1-x2, y1-y2)
 end
 
 function vector.normalize(x,y)
-    local l = len(x,y)
+    local l = vector.len(x,y)
     return x/l, y/l
 end
 
